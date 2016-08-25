@@ -8,7 +8,7 @@ Centrify.Samples.DotNet.SIEMUtility.sln (VS 2015) contains two projects:
   query the platform API's using queries found in the Queries.json file, and export the results to CSV for a SIEM application to ingest.
   The utility will also back up old output files when it notices that the day has changed since its last run.
   
-  This utility can also be used to simply export reports, export analytic information, and aggrigate any data within the Centrify Identity Platform data tables. 
+  This utility can also be used to simply export reports, export analytic information, and aggregate any data within the Centrify Identity Platform data tables. 
   Please see the reports menu in the Centrify Cloud Manager for more information on what tables exist and what data exists in the tables.
 
 # Installation and use Instructions:
