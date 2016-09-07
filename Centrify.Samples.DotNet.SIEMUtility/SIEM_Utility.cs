@@ -25,7 +25,7 @@ namespace Centrify.Samples.DotNet.SIEMUtility
 {
     class SIEM_Utility
     {
-        static string Version = "Version 1.0_8_22_16";
+        static string Version = "Version 1.1_9_07_16";
 
         static void Main(string[] args)
         {
