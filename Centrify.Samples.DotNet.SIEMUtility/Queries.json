@@ -2,7 +2,7 @@
     "queries": [
         {
             "caption": "Event",
-            "query": "Select * from Event where whenoccurred >= DateFunc('today')"
+            "query": "Select * from Event where whenoccurred >= DateFunc('now','-30')"
         },
         {
             "caption": "Proxy",

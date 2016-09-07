@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Centrify.Samples.DotNet.ApiLib
 {
@@ -31,7 +31,6 @@ namespace Centrify.Samples.DotNet.ApiLib
         public string Endpoint { get; set; }
                 
         private const string DEFAULT_ENDPOINT = "https://cloud.centrify.com";
-        private JavaScriptSerializer m_jsSerializer = new JavaScriptSerializer();
 
         public RestClient()
         {
@@ -50,12 +49,14 @@ namespace Centrify.Samples.DotNet.ApiLib
 
         public Dictionary<string, dynamic> CallApi(string method, Dictionary<string, dynamic> payload)
         {
-            return m_jsSerializer.Deserialize<Dictionary<string, dynamic>>(Call(method, payload));
+
+            Dictionary<string, dynamic> queryResults = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(Call(method, payload));
+            return queryResults;
         }
 
         public string Call(string method, Dictionary<string, dynamic> payload)
         {
-            return Call(method, m_jsSerializer.Serialize(payload));
+            return Call(method, JsonConvert.SerializeObject(payload));
         }
 
         public string Call(string method, string jsonPayload)

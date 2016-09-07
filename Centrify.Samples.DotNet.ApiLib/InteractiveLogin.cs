@@ -186,16 +186,16 @@ namespace Centrify.Samples.DotNet.ApiLib
         // Performs an MFA login interactively using Console
         public static RestClient Authenticate(string podEndpoint, string adminUserName, string adminPassword)
         {
-            RestClient client = new RestClient(podEndpoint);                       
+            RestClient client = new RestClient(podEndpoint);
 
             // /security/startauthentication api takes username and version:
             Dictionary<string, dynamic> args = new Dictionary<string, dynamic>();
             args["User"] = adminUserName;
             args["Version"] = "1.0";
             Dictionary<string, dynamic> startResult = client.CallApi("/security/startauthentication", args);
-            
+
             // First thing to check for is whether we should repeat the call against a more specific pod name (tenant specific url):
-            if(startResult["success"] && startResult["Result"].ContainsKey("PodFqdn"))
+            if (startResult["success"] && startResult["Result"]["PodFqdn"] != null)
             {
                 Console.WriteLine("Auth redirected to {0}", startResult["Result"]["PodFqdn"]);
                 client.Endpoint = string.Format("https://{0}", startResult["Result"]["PodFqdn"]);

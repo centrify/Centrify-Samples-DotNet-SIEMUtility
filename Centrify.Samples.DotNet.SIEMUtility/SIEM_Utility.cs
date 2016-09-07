@@ -19,8 +19,7 @@ using System.Collections.Generic;
 using Centrify.Samples.DotNet.ApiLib;
 using System.IO;
 using System.Configuration;
-using System.Collections;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Centrify.Samples.DotNet.SIEMUtility
 {
@@ -70,15 +69,14 @@ namespace Centrify.Samples.DotNet.SIEMUtility
             Console.WriteLine("Getting list of queries...");
 
             //Read queries from query file
-            JavaScriptSerializer m_jsSerializer = new JavaScriptSerializer();
             StreamReader jsonReader = new StreamReader("Queries.json");
-            Dictionary<string, dynamic> queries_Dict = m_jsSerializer.Deserialize<Dictionary<string, dynamic>>(jsonReader.ReadToEnd());
+            Dictionary<string, dynamic> queries_Dict = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(jsonReader.ReadToEnd());
 
             //Exicute queries in Queries file and export the results to ; delimeted CSV
             foreach (var query in queries_Dict["queries"])
             {
                 Console.WriteLine("Exicuting Query {0}... \n", query["caption"]);
-                ProcessQueryResults(query["caption"], apiClient.Query(query["query"]));
+                ProcessQueryResults(query["caption"].ToString(), apiClient.Query(query["query"].ToString()));
             }
 
             //Log last run time at every successful run.
@@ -93,7 +91,7 @@ namespace Centrify.Samples.DotNet.SIEMUtility
             }
         }
 
-        static void ProcessQueryResults(string fileName, Dictionary<string, dynamic> results)
+        static void ProcessQueryResults(string fileName, Newtonsoft.Json.Linq.JObject results)
         {
             try
             {
@@ -102,7 +100,9 @@ namespace Centrify.Samples.DotNet.SIEMUtility
                     //Add Columns to flat file based on the dictionary keys of the first result to ensure column and result order
                     int colCount = 1;
                     string columns = "";
-                    List<string> keyList = new List<string>(results["Results"][0]["Row"].Keys);
+                    Dictionary<string, dynamic> row_dic = results["Results"][0]["Row"].ToObject<Dictionary<string, dynamic>>();
+                    List <string> keyList = new List<string>(row_dic.Keys);
+
                     foreach (var key in keyList)
                     {
                         if (keyList.Count == colCount)
@@ -127,9 +127,11 @@ namespace Centrify.Samples.DotNet.SIEMUtility
                         int pairCount = 1;
                         string row = "";
 
-                        foreach (var pair in result["Row"])
+                        Dictionary<string, dynamic> result_Row_Dict = result["Row"].ToObject<Dictionary<string, dynamic>>();
+
+                        foreach (var pair in result_Row_Dict)
                         {
-                            if (result["Row"].Count == pairCount)
+                            if (result_Row_Dict.Count == pairCount)
                             {
                                 row = row + pair.Value;
                             }
