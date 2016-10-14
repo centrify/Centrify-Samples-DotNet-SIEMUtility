@@ -156,6 +156,21 @@ namespace Centrify.Samples.DotNet.ApiLib
             return result["Result"];
         }
 
+        // Illustrates usage of /UserMgmt/GetUserRolesAndAdministrativeRights to get user roles
+        public dynamic GetUserRolesAndAdministrativeRights(string ID)
+        {
+            Dictionary<string, dynamic> args = new Dictionary<string, dynamic>();
+            args["id"] = ID;
+
+            var result = m_restClient.CallApi("/UserMgmt/GetUsersRolesAndAdministrativeRights", args);
+            if (result["success"] != true)
+            {
+                Console.WriteLine("GetUserRolesAndAdministrativeRights failed: {0}", result["Message"]);
+                throw new ApplicationException(result["Message"]);
+            }
+
+            return result["Result"];
+        }
 
         // Illustrates usage of /saasManage/updateapplicationde to stash a new username/password for a UP application
         public void UpdateApplicationDE(string appKey, string username, string password)

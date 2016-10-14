@@ -25,7 +25,7 @@ namespace Centrify.Samples.DotNet.SIEMUtility
 {
     class SIEM_Utility
     {
-        static string Version = "Version 1.1_9_07_16";
+        static string Version = "Version 1.2_10_14_16";
 
         static void Main(string[] args)
         {
@@ -55,7 +55,7 @@ namespace Centrify.Samples.DotNet.SIEMUtility
                 string prefix = lastRunTime.Month.ToString() + "_" + lastRunTime.Day.ToString() + "_" + lastRunTime.Year.ToString() + "_";
                 foreach (var file in files)
                 {
-                    string newFileName = Path.Combine(Path.GetDirectoryName(file), (prefix + Path.GetFileName(file)));
+                    string newFileName = Path.Combine(Path.GetDirectoryName(file) + "\\Archived\\", (prefix + Path.GetFileName(file)));
                     File.Move(file, newFileName);
                 }
             }
@@ -76,7 +76,18 @@ namespace Centrify.Samples.DotNet.SIEMUtility
             foreach (var query in queries_Dict["queries"])
             {
                 Console.WriteLine("Exicuting Query {0}... \n", query["caption"]);
-                ProcessQueryResults(query["caption"].ToString(), apiClient.Query(query["query"].ToString()));
+                Newtonsoft.Json.Linq.JObject results= apiClient.Query(query["query"].ToString());
+                Dictionary<string, dynamic> row_dic = results["Results"][0]["Row"].ToObject<Dictionary<string, dynamic>>();
+
+                bool getRoles = false;
+
+                //Check if the utility should get users roles.
+                if(row_dic.ContainsKey(ConfigurationManager.AppSettings["UserIDKey"]) && ConfigurationManager.AppSettings["AppendUserRoles"] == "true")
+                {
+                    getRoles = true;
+                }
+
+                ProcessQueryResults(query["caption"].ToString(), results, getRoles);
             }
 
             //Log last run time at every successful run.
@@ -91,7 +102,7 @@ namespace Centrify.Samples.DotNet.SIEMUtility
             }
         }
 
-        static void ProcessQueryResults(string fileName, Newtonsoft.Json.Linq.JObject results)
+        static void ProcessQueryResults(string fileName, Newtonsoft.Json.Linq.JObject results, bool GetRoles)
         {
             try
             {
@@ -107,11 +118,18 @@ namespace Centrify.Samples.DotNet.SIEMUtility
                     {
                         if (keyList.Count == colCount)
                         {
-                            columns = columns + key;
+                            if (GetRoles)
+                            {
+                                columns = columns + key + ConfigurationManager.AppSettings["CSVDelimiter"] + " "+ "Roles";
+                            }
+                            else
+                            {
+                                columns = columns + key;
+                            }
                         }
                         else
                         {
-                            columns = columns + key + "; ";
+                            columns = columns + key + ConfigurationManager.AppSettings["CSVDelimiter"] + " ";
 
                         }
 
@@ -124,25 +142,58 @@ namespace Centrify.Samples.DotNet.SIEMUtility
                     //Add each row to flat file                   
                     foreach (var result in results["Results"])
                     {
+                        Dictionary<string, dynamic> result_Row_Dict = result["Row"].ToObject<Dictionary<string, dynamic>>();
+
                         int pairCount = 1;
                         string row = "";
+                        string rolesList = "";
 
-                        Dictionary<string, dynamic> result_Row_Dict = result["Row"].ToObject<Dictionary<string, dynamic>>();
+                        //Get Users Roles if desired
+                        if (GetRoles)
+                        {
+                            //Authenticate to Centrify with no MFA service account
+                            RestClient authenticatedRestClient = InteractiveLogin.Authenticate(ConfigurationManager.AppSettings["CentrifyEndpointUrl"], ConfigurationManager.AppSettings["AdminUserName"], ConfigurationManager.AppSettings["AdminPassword"]);
+                            ApiClient apiClient = new ApiClient(authenticatedRestClient);
+
+                            Newtonsoft.Json.Linq.JObject roles = apiClient.GetUserRolesAndAdministrativeRights(result_Row_Dict[ConfigurationManager.AppSettings["UserIDKey"]]);
+                            Dictionary<string, dynamic> roles_Dict = roles.ToObject<Dictionary<string, dynamic>>();
+
+                            foreach (var role_Entry in roles_Dict["Results"])
+                            {
+                                Dictionary<string, dynamic> role_Entry_Dict = role_Entry.ToObject<Dictionary<string, dynamic>>();
+
+                                foreach (var role in role_Entry_Dict["Entities"])
+                                {
+                                    Dictionary<string, dynamic> role_Key_Dict = role.ToObject<Dictionary<string, dynamic>>();
+                                    rolesList = rolesList + role_Key_Dict["Key"] + ", ";
+                                }
+                            }
+                        }
 
                         foreach (var pair in result_Row_Dict)
                         {
                             if (result_Row_Dict.Count == pairCount)
                             {
-                                row = row + pair.Value;
+                                if (GetRoles)
+                                {
+                                    row = row + pair.Value + ConfigurationManager.AppSettings["CSVDelimiter"] + " " + rolesList.Trim(new char[',']);
+                                }
+                                else
+                                {
+                                    row = row + pair.Value;
+                                }
                             }
                             else
                             {
-                                row = row + pair.Value + "; ";
+                                row = row + pair.Value + ConfigurationManager.AppSettings["CSVDelimiter"] + " ";
 
                             }
 
                             pairCount++;
                         }
+                        
+
+
                         writer.WriteLine(row);
                         writer.Flush();
                     }
