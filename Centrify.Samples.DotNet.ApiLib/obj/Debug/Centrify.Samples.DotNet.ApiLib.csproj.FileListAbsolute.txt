@@ -6,8 +6,7 @@ C:\Users\admin\Documents\Visual Studio 2015\Projects\Customer_Projects\Fidelity_
 C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\bin\Debug\Centrify.Samples.DotNet.ApiLib.dll.config
 C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\bin\Debug\Centrify.Samples.DotNet.ApiLib.dll
 C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\bin\Debug\Centrify.Samples.DotNet.ApiLib.pdb
-C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\obj\Debug\Centrify.Samples.DotNet.ApiLib.csprojResolveAssemblyReference.cache
-C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\obj\Debug\Centrify.Samples.DotNet.ApiLib.dll
-C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\obj\Debug\Centrify.Samples.DotNet.ApiLib.pdb
 C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\bin\Debug\Newtonsoft.Json.dll
 C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\obj\Debug\Centrify.Samples.DotNet.ApiLib.dll
+C:\Users\nick.gamb\Documents\Visual Studio 2015\Projects\Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.ApiLib\obj\Debug\Centrify.Samples.DotNet.ApiLib.pdb

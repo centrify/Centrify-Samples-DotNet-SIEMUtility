@@ -21,9 +21,9 @@ using System.IO;
 using System.Configuration;
 using Newtonsoft.Json;
 
-namespace Centrify.Samples.DotNet.SIEMUtility
+namespace Centrify.Samples.DotNet.QueryUtility
 {
-    class SIEM_Utility
+    class Query_Utility
     {
         static string Version = "Version 1.2_10_14_16";
 

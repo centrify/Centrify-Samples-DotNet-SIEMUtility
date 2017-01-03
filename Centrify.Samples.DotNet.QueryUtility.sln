@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrify.Samples.DotNet.SIEMUtility", "Centrify.Samples.DotNet.SIEMUtility\Centrify.Samples.DotNet.SIEMUtility.csproj", "{A57FB8CA-6506-40C4-8A5D-4F6302E5233D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrify.Samples.DotNet.Querytility", "Centrify.Samples.DotNet.QueryUtility\Centrify.Samples.DotNet.QueryUtility.csproj", "{A57FB8CA-6506-40C4-8A5D-4F6302E5233D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrify.Samples.DotNet.ApiLib", "Centrify.Samples.DotNet.ApiLib\Centrify.Samples.DotNet.ApiLib.csproj", "{1314AE11-A061-40DF-A31C-D51E7676741F}"
 EndProject
