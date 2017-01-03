@@ -25,7 +25,7 @@ namespace Centrify.Samples.DotNet.QueryUtility
 {
     class Query_Utility
     {
-        static string Version = "Version 1.2_10_14_16";
+        static string Version = "Version 1.3_01_03_17";
 
         static void Main(string[] args)
         {
