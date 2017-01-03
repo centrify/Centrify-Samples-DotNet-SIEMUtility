@@ -5,10 +5,10 @@ Centrify.Samples.DotNet.QueryUtility.sln (VS 2015) contains two projects:
   1. Centrify.Samples.DotNet.ApiLib - Includes a general REST client for communicating with the CIS Platform, as well as
   a class, ApiClient, which uses the REST client to make calls to specific platform API's.
   2. Centrify.Samples.DotNet.QueryUtility - A sample console application utility which utilizes the ApiLib project to authenticate a user, 
-  queries the platform API's using queries found in the Queries.json file, and exports the results to CSV for further use (i.e. sending reports via email, ingesting into other database systems, automating the capturing at storage of reports/queries, use in data warehouse solutions and ETL's such as SSIS, etc).
+  query the platform API's using queries found in the Queries.json file, and export the results to CSV for further use (i.e. sending reports via email, ingesting into other database systems, automating the capturing and storage of reports/queries, use in data warehouse solutions and ETL's such as SSIS, etc).
   The utility will also back up old output files when it notices that the day has changed since its last run.
   
-  This utility, as mentioned abovem has many uses such as simply exporting reports, exporting analytic information, and aggregating any data within the Centrify Identity Platform data tables. 
+  This utility, as mentioned above has many uses such as exporting reports, exporting analytic information, and aggregating any data within the Centrify Identity Platform data tables. 
   Please see the reports menu in the Centrify Cloud Manager for more information on what tables exist and what data exists in the tables.
 
 # Installation and use Instructions:
