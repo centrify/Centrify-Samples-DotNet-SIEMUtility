@@ -14,11 +14,11 @@ Centrify.Samples.DotNet.QueryUtility.sln (VS 2015) contains two projects:
 # Installation and use Instructions:
  
 1. First compile the solution in Release
-2. Copy the contents of the Relase folder to a location of your choice
+2. Copy the contents of the Release folder to a location of your choice
 3. Open the Queries.json file and customize desired queries. Default queries are all event log entries for the day and all proxy entries
 4. Open the App.config file and customize your Centrify tenant url, admin username, and admin password. Make sure the admin account is set to not use MFA or the utility will fail.
 5. Run utility from command line or by double click
 6. Results will be located in the Output folder in the root of the utility directory.
 7. Use a scheduling tool, such as Windows Task Scheduler, to run the utility on a scheduled basis. The utility can be ran as often as desired as long as it has a chance to finish running before it is ran again.
-8. Make use of exported CSV files in desired use case, or add fucntionality to the sample project to mett the needs of desired use case.
+8. Make use of exported CSV files in desired use case, or add functionality to the sample project to meet the needs of desired use case.
    
