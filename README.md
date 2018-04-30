@@ -22,3 +22,4 @@ Centrify.Samples.DotNet.QueryUtility.sln (VS 2015) contains two projects:
 7. Use a scheduling tool, such as Windows Task Scheduler, to run the utility on a scheduled basis. The utility can be ran as often as desired as long as it has a chance to finish running before it is ran again.
 8. Make use of exported CSV files in desired use case, or add functionality to the sample project to meet the needs of desired use case.
    
+For support, please contact devsupport@centrify.com
